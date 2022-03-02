@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  title: API-VEHICLES
+  version: 1.0.0
+  description: "CRUD OPERATIONS"
+  contact:
+    name: API Author
+    email: luanflov92@gmail.com
+
+servers:
+  - url: "http://localhost:8000"
+    description: Local development enviroment
+  - url: "https://desaapigw.bluex.cl/sample/v1"
+    description: BX DEV
+paths:
+  /vehicles:
+    get:
+      tags:
+        - VEHICLES
+      responses:
+        "200":
+          $ref: "#/components/responses/ResponseVehicleListOk"
+        "204":
+          description: NO CONTENT
+        "400":
+          $ref: "#/components/responses/ResponseVehicleError"
+      operationId: getVehicle
+      summary: retrive a List Vehicles
+      description: retrive a List Vehicles
+    post:
+      requestBody:
+        $ref: "#/components/requestBodies/RequestVehicle"
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      tags:
+        - VEHICLES
+      responses:
+        "201":
+          $ref: "#/components/responses/ResponseVehicleOk"
+        "400":
+          $ref: "#/components/responses/ResponseVehicleError"
+      operationId: postVehicle
+      summary: added a single Vehicle
+      description: added a single Vehicle for test purpose
+  "/Vehicles/{VehicleId}":
+    get:
+      tags:
+        - VEHICLES
+      parameters:
+        - name: VehicleId
+          schema:
+            type: integer
+          in: path
+          required: true
+      responses:
+        "200":
+          $ref: "#/components/responses/ResponseVehicleOk"
+        "404":
+          $ref: "#/components/responses/ResponseVehicleError"
+      operationId: getVehicleById
+      summary: retrieve a single Vehicle by their ID
+      description: retrieve a single Vehicle by their ID for test purposes
+    put:
+      requestBody:
+        $ref: "#/components/requestBodies/RequestVehicle"
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Vehicle"
+        required: true
+      tags:
+        - VEHICLES
+      parameters:
+        - name: VehicleId
+          schema:
+            type: integer
+          in: path
+          required: true
+      responses:
+        "200":
+          $ref: "#/components/responses/ResponseVehicleOk"
+        "400":
+          $ref: "#/components/responses/ResponseVehicleError"
+      operationId: putVehicleById
+      summary: update a single Vehicle by their ID
+      description: update a single Vehicle by their ID for test purposes
+
+components:
+  schemas:
+    Vehicle:
+      type: object
+      properties:
+        countyFips:
+          type: integer
+        countyName:
+          type: string
+        stateName:
+          type: string
+        date:
+          type: string
+        countyVmt:
+          type: integer
+        baselineJanVmt:
+          type: integer
+        percentChangeFromJan:
+          type: integer
+        mean7CountyVmt:
+          type: integer
+        mean7PercentChangeFromJan:
+          type: integer
+        dateAtLow:
+          type: string
+        mean7CountyVmtAtLow:
+          type: integer
+        percentChangeFromLow:
+          type: integer
+
+    Error:
+      title: Root Type for Error
+      description: "Error definition"
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+      example:
+        status: true
+        message: Some Error
+  responses:
+    ResponseVehicleOk:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                default: true
+                type: boolean
+              data:
+                $ref: "#/components/schemas/Vehicle"
+      description: successfully added Vehicle
+    ResponseVehicleListOk:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                default: true
+                type: boolean
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Vehicle"
+      description: successfully added Vehicle
+    ResponseVehicleError:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                default: false
+                type: boolean
+              data:
+                type: object
+      description: Error Vehicle
+
+  examples:
+    RequestPostVehicleInternal:
+      summary: Create Vehicle internal
+      value:
+        countyFips: 1032
+        countyName: Autauga
+        stateName: Alabama
+        date: "5/4/20"
+        countyVmt: 2390000
+        baselineJanVmt: 3571446
+        percentChangeFromJan: -33
+        mean7CountyVmt: 2515714
+        mean7PercentChangeFromJan: -33
+        dateAtLow: "5/4/20"
+        mean7CountyVmtAtLow: 1542857
+        percentChangeFromLow: 63
+
+  requestBodies:
+    RequestVehicle:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Vehicle"
+          examples:
+            internal:
+              $ref: "#/components/examples/RequestPostVehicleInternal"
+      required: true
+    RequestUpdateVehicle:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Vehicle"
+          examples:
+            internal:
+              $ref: "#/components/examples/RequestPostVehicleInternal"
+      required: true
+
+tags:
+  - name: Vehicle
+    description: CRUD Api for Vehicle
