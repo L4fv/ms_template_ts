@@ -1,5 +1,6 @@
 import { Application, urlencoded, json } from "express";
 import * as morgan from "morgan";
+import * as cors from "cors";
 
 import * as helmet from "helmet";
 import * as winston from "winston";
@@ -17,6 +18,7 @@ export default class Server {
 
   public config(app: Application): void {
     app.use(morgan("combined"));
+    app.use(cors); /* NEW */
     app.use(urlencoded({ extended: true }));
     app.use(json());
     app.use(helmet());
