@@ -5,6 +5,9 @@ WORKDIR /app
 # Resolve node_modules for caching
 COPY ./package.json ./
 COPY ./yarn.lock ./
+RUN npm config set unsafe-perm true
+RUN npm install -g typescript
+RUN npm install -g ts-node
 RUN yarn install --production=true --frozen-lockfile
 RUN npm run tsc
 
