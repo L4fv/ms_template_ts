@@ -7,11 +7,11 @@ import Server from "./index";
 
 const app: Application = express();
 const server: Server = new Server(app);
-const port: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+const port: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 
 app
-  .listen(port, "localhost", function () {
-    console.info(`Server running on : http://localhost:${port}`);
+  .listen(port, "0.0.0.0", function () {
+    console.info(`Server running on : http://0.0.0.0:${port}`);
   })
   .on("error", (err: any) => {
     if (err.code === "EADDRINUSE") {

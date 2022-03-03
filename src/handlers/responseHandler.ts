@@ -15,14 +15,15 @@ export function ErrorResponse(
   res: Response,
   message: string
 ) {
+  console.log("err ", err);
   var data = {
     status: false,
     message: err.message,
   };
   const httpCode = err["httpCode"] ? err["httpCode"] : 500;
-  const error: object = { Message: message, Request: req, Stack: err };
-
-  winston.error(JSON.stringify(error));
+  console.log("httpCode ", httpCode);
+  //const error: object = { Message: message, Request: req, Stack: err };
+  winston.error(JSON.stringify(err));
 
   return res.status(httpCode).json(data);
 }

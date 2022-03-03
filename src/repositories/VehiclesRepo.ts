@@ -4,7 +4,6 @@ class VehicleRepo {
   constructor() {}
 
   getAllCourses(options) {
-    console.log("ere", options);
     return Vehicles.findAll(options);
   }
 

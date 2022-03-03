@@ -10,18 +10,26 @@ export default class VehiclesCtrl {
     try {
       const options = {};
       const result = await VehicleRepo.getAllCourses(options);
+      console.log("result --X, result");
       return successResWithData(res, result, "sucess");
     } catch (error) {
-      ErrorResponse(error, req, res, "Fetch All Vehicles failed.");
+      console.log("erroir ---------", error);
+      //ErrorResponse(error, req, res, "Fetch All Vehicles failed.");
     }
   }
 
   async postVehicles(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log("postVehicles");
+
       const result = await VehicleRepo.postVehicles(req.body);
+      console.log("result --X, result", result);
+
       return successResWithData(res, result, "sucess");
     } catch (error) {
-      ErrorResponse(error, req, res, "Post Vehicles failed.");
+      console.log("erroir ---------", error);
+
+      //ErrorResponse(error, req, res, "Post Vehicles failed.");
     }
   }
 
@@ -34,7 +42,9 @@ export default class VehiclesCtrl {
       }
       return successResWithData(res, result, messages);
     } catch (error) {
-      ErrorResponse(error, req, res, "Fetch Vehicles By Id failed.");
+      console.log("erroir ---------", error);
+
+      //ErrorResponse(error, req, res, "Fetch Vehicles By Id failed.");
     }
   }
 
@@ -46,7 +56,9 @@ export default class VehiclesCtrl {
       );
       return successResWithData(res, {}, "sucess");
     } catch (error) {
-      ErrorResponse(error, req, res, "Update Vehicles By Id failed.");
+      console.log("erroir ---------", error);
+
+      //ErrorResponse(error, req, res, "Update Vehicles By Id failed.");
     }
   }
 }
