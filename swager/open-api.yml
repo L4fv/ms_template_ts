@@ -8,10 +8,10 @@ info:
     email: luanflov92@gmail.com
 
 servers:
-  - url: "http://localhost:8000"
+  - url: "http://localhost:3000/api/v1/"
     description: Local development enviroment
-  - url: "https://desaapigw.bluex.cl/sample/v1"
-    description: BX DEV
+  - url: "http://144.126.149.206:4000/api/v1/"
+    description: TEST
 paths:
   /vehicles:
     get:
