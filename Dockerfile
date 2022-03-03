@@ -27,6 +27,6 @@ COPY --from=BUILD_IMAGE /app/build /app/build
 
 WORKDIR /app
 
-#ENV STRAPI_LOG_LEVEL=debug
-
+# Expose port 3000
+EXPOSE 3000
 CMD [ "build/server.js" ]
