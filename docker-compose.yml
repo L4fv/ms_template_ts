@@ -2,7 +2,7 @@ version: '2'
 services:
     app_1:
         restart: always
-        image: 'ms_template_ts:PROD_1.3'
+        image: 'ms_template_ts:PROD_1.4'
         env_file: .env
         ports:
             - '4000:3000'
