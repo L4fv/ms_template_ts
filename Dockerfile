@@ -6,6 +6,7 @@ WORKDIR /app
 COPY ./package.json ./
 COPY ./yarn.lock ./
 RUN yarn install --production=true --frozen-lockfile
+RUN npm run tsc
 
 # Copy all for build and release cache if package.json update
 COPY . .
