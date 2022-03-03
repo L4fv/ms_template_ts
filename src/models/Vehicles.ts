@@ -14,7 +14,7 @@ export class Vehicles extends Model {
   public mean7PercentChangeFromJan!: number;
   public dateAtLow!: string;
   public mean7CountyVmtAtLow!: number;
-  public perceC_chanF_frL_low!: number;
+  public percentChangeFromLow!: number;
 }
 
 Vehicles.init(
@@ -36,6 +36,7 @@ Vehicles.init(
   {
     sequelize,
     tableName: "Vehicles",
+    timestamps: false,
   }
 );
 /*

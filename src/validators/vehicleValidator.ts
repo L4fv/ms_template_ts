@@ -1,5 +1,6 @@
 import * as Joi from "joi";
 import { Request, Response, NextFunction } from "express";
+import { ErrorResponse } from "../handlers/responseHandler";
 
 interface VehicleRequest extends Request {
   value?: { body?: string };
@@ -14,8 +15,9 @@ export class VehicleValidator {
         req.value = req.value ?? {};
         req.value.body = req.value.body ?? val;
         next();
-      } catch (error) {
-        res.status(400).json(error);
+      } catch (err) {
+        console.log("err ", err);
+        ErrorResponse(err, req, res, "Fields Error", 400);
       }
     };
   }

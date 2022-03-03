@@ -1,31 +1,32 @@
 import { Request, Response, NextFunction } from "express";
 import * as winston from "winston";
-export const successResWithData = (res, data, msg) => {
+export function successResWithData(res, data, msg) {
   var resData = {
     status: true,
     message: msg ? msg : "success",
     data: data,
   };
   return res.status(200).json(resData);
-};
+}
 
 export function ErrorResponse(
   err: any,
   req: Request,
   res: Response,
-  message: string
+  message: string,
+  httpCode: number
 ) {
-  console.log("err ", err);
   var data = {
     status: false,
-    message: err.message,
+    message: message,
   };
-  const httpCode = err["httpCode"] ? err["httpCode"] : 500;
-  console.log("httpCode ", httpCode);
-  //const error: object = { Message: message, Request: req, Stack: err };
-  winston.error(JSON.stringify(err));
 
-  return res.status(httpCode).json(data);
+  const _httpCode = httpCode ? httpCode : 500;
+
+  const _error = JSON.stringify(err);
+  const error: object = { Message: message, Request: req, Stack: _error };
+  winston.error(error);
+  return res.status(_httpCode).json(data);
 }
 
 export function unCoughtErrorHandler(

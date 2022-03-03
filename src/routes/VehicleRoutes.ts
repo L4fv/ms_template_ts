@@ -15,11 +15,12 @@ class VehicleRoutes {
   }
   intializeRoutes() {
     this.router.route("/").get(this.vehiclesCtrl.getAllCourses);
-    this.router.route("/").post(
-      this.vehicleValidator.validateBody(vehicleSchema),
-
-      this.vehiclesCtrl.postVehicles
-    );
+    this.router
+      .route("/")
+      .post(
+        this.vehicleValidator.validateBody(vehicleSchema),
+        this.vehiclesCtrl.postVehicles
+      );
     this.router.route("/:id").get(this.vehiclesCtrl.getVehiclesById);
     this.router.route("/:id").put(this.vehiclesCtrl.updateVehiclesById);
   }

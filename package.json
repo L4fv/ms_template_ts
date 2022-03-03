@@ -5,6 +5,7 @@
   "scripts": {
     "clean": "tsc --build --clean",
     "build": "npm run clean && tsc -p ./",
+    "delete": "find . -name '*.js' ! -path './node_modules/*' -delete",
     "start": "node src/server.ts",
     "dev": "concurrently \"npm:watch\" \"npm:serve\"",
     "serve": "nodemon ./src/server.ts",
